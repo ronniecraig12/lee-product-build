@@ -1,1 +1,25 @@
-/* Add styles here */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+:root {
+    --background-color: #f0f2f5;
+    --card-background: #ffffff;
+    --primary-text-color: #333;
+    --secondary-text-color: #666;
+    --accent-color-1: #4CAF50;
+    --accent-color-2: #2196F3;
+    --accent-color-3: #FFC107;
+    --accent-color-4: #F44336;
+    --accent-color-5: #9C27B0;
+    --shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--background-color);
+    margin: 0;
+    background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+}
