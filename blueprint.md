@@ -9,6 +9,7 @@ A modern, interactive, and visually appealing Lotto Number Generator built using
 - **Color Coding:** Numbers are color-coded based on their value ranges.
 - **Responsive Design:** Works perfectly on mobile and desktop.
 - **Dark/Light Mode:** Users can toggle between dark and light themes, with preference persistence.
+- **Partnership Inquiry Form:** Integrated with Formspree for easy collaboration requests.
 - **Modern Aesthetics:** Uses Poppins font, gradients, and soft shadows for a premium feel.
 
 ## Technical Implementation

@@ -1,3 +1,110 @@
+class PartnershipForm extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+    }
+
+    connectedCallback() {
+        this.render();
+    }
+
+    render() {
+        this.shadowRoot.innerHTML = `
+            <style>
+                :host {
+                    display: block;
+                    width: 100%;
+                    max-width: 400px;
+                }
+                .form-card {
+                    background-color: var(--card-background, #ffffff);
+                    border-radius: 20px;
+                    padding: 30px;
+                    box-shadow: var(--shadow);
+                    transition: transform 0.3s ease, background-color 0.3s ease;
+                }
+                h2 {
+                    color: var(--primary-text-color, #333);
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    margin-bottom: 20px;
+                    text-align: center;
+                }
+                .form-group {
+                    margin-bottom: 15px;
+                }
+                label {
+                    display: block;
+                    color: var(--secondary-text-color, #666);
+                    font-size: 0.9rem;
+                    margin-bottom: 5px;
+                }
+                input, textarea {
+                    width: 100%;
+                    padding: 12px;
+                    border: 2px solid #eee;
+                    border-radius: 10px;
+                    font-family: inherit;
+                    font-size: 0.9rem;
+                    box-sizing: border-box;
+                    background-color: var(--background-color);
+                    color: var(--primary-text-color);
+                    transition: border-color 0.3s ease;
+                }
+                input:focus, textarea:focus {
+                    outline: none;
+                    border-color: var(--accent-color-2);
+                }
+                textarea {
+                    height: 100px;
+                    resize: vertical;
+                }
+                button {
+                    width: 100%;
+                    background-image: linear-gradient(to right, #2196F3 0%, #00BCD4 51%, #2196F3 100%);
+                    padding: 15px;
+                    text-align: center;
+                    text-transform: uppercase;
+                    transition: 0.5s;
+                    background-size: 200% auto;
+                    color: white;            
+                    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                    border-radius: 10px;
+                    border: none;
+                    cursor: pointer;
+                    font-size: 1rem;
+                    font-weight: 600;
+                    margin-top: 10px;
+                }
+                button:hover {
+                    background-position: right center;
+                    transform: scale(1.02);
+                }
+            </style>
+            <div class="form-card">
+                <h2>제휴 문의</h2>
+                <form action="https://formspree.io/f/mojywykq" method="POST">
+                    <div class="form-group">
+                        <label for="name">성함/업체명</label>
+                        <input type="text" id="name" name="name" required placeholder="홍길동">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">이메일 주소</label>
+                        <input type="email" id="email" name="_replyto" required placeholder="example@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">문의 내용</label>
+                        <textarea id="message" name="message" required placeholder="문의하실 내용을 입력해주세요."></textarea>
+                    </div>
+                    <button type="submit">문의하기</button>
+                </form>
+            </div>
+        `;
+    }
+}
+
+customElements.define('partnership-form', PartnershipForm);
+
 class LottoGenerator extends HTMLElement {
     constructor() {
         super();
