@@ -5,46 +5,42 @@ class LottoGenerator extends HTMLElement {
     }
 
     connectedCallback() {
+        this.render();
+    }
+
+    render() {
         this.shadowRoot.innerHTML = `
             <style>
-                @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-
                 :host {
-                    --card-background: #ffffff;
-                    --primary-text-color: #333;
-                    --secondary-text-color: #666;
-                    --accent-color-1: #4CAF50;
-                    --accent-color-2: #2196F3;
-                    --accent-color-3: #FFC107;
-                    --accent-color-4: #F44336;
-                    --accent-color-5: #9C27B0;
-                    --shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-                    font-family: 'Poppins', sans-serif;
+                    display: block;
+                    width: 100%;
+                    max-width: 400px;
                 }
 
                 .lotto-card {
-                    background-color: var(--card-background);
+                    background-color: var(--card-background, #ffffff);
                     border-radius: 20px;
                     padding: 30px;
                     box-shadow: var(--shadow);
                     text-align: center;
-                    max-width: 400px;
                     width: 100%;
-                    transition: transform 0.3s ease;
+                    transition: transform 0.3s ease, background-color 0.3s ease;
                 }
                 .lotto-card:hover {
                     transform: translateY(-5px);
                 }
                 h2 {
-                    color: var(--primary-text-color);
+                    color: var(--primary-text-color, #333);
                     font-size: 2rem;
                     font-weight: 700;
                     margin-bottom: 10px;
+                    transition: color 0.3s ease;
                 }
                 p {
-                    color: var(--secondary-text-color);
+                    color: var(--secondary-text-color, #666);
                     font-size: 1rem;
                     margin-bottom: 30px;
+                    transition: color 0.3s ease;
                 }
                 .numbers {
                     display: flex;
@@ -66,6 +62,7 @@ class LottoGenerator extends HTMLElement {
                     transition: all 0.3s ease;
                     transform: scale(0);
                     animation: popIn 0.5s ease forwards;
+                    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
                 }
                 @keyframes popIn {
                     to {
@@ -74,14 +71,14 @@ class LottoGenerator extends HTMLElement {
                 }
                 button {
                     background-image: linear-gradient(to right, #4CAF50 0%, #8BC34A  51%, #4CAF50  100%);
-                    margin-top: 20px;
+                    margin: 20px auto 0;
                     padding: 15px 45px;
                     text-align: center;
                     text-transform: uppercase;
                     transition: 0.5s;
                     background-size: 200% auto;
                     color: white;            
-                    box-shadow: 0 0 20px #eee;
+                    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
                     border-radius: 10px;
                     display: block;
                     border: none;
@@ -91,26 +88,28 @@ class LottoGenerator extends HTMLElement {
                 }
 
                 button:hover {
-                    background-position: right center; /* change the direction of the change here */
-                    color: #fff;
-                    text-decoration: none;
+                    background-position: right center;
+                    transform: scale(1.05);
+                }
+                button:active {
+                    transform: scale(0.95);
                 }
             </style>
             <div class="lotto-card">
-                <h2>Lotto Number Generator</h2>
-                <p>Click the button to generate your lucky numbers!</p>
+                <h2>Lotto Numbers</h2>
+                <p>Try your luck today!</p>
                 <div class="numbers">
                 </div>
-                <button>Generate Numbers</button>
+                <button id="generate">Generate Numbers</button>
             </div>
         `;
 
-        this.shadowRoot.querySelector('button').addEventListener('click', () => this.generateNumbers());
+        this.shadowRoot.querySelector('#generate').addEventListener('click', () => this.generateNumbers());
     }
 
     generateNumbers() {
         const numbersContainer = this.shadowRoot.querySelector('.numbers');
-        numbersContainer.innerHTML = ''; // Clear previous numbers
+        numbersContainer.innerHTML = ''; 
         const numbers = new Set();
         while(numbers.size < 6) {
             numbers.add(Math.floor(Math.random() * 45) + 1);
@@ -138,3 +137,25 @@ class LottoGenerator extends HTMLElement {
 }
 
 customElements.define('lotto-generator', LottoGenerator);
+
+// Theme Toggle Logic
+const themeToggle = document.getElementById('theme-toggle');
+const currentTheme = localStorage.getItem('theme') || 'light';
+
+if (currentTheme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    themeToggle.textContent = '☀️';
+}
+
+themeToggle.addEventListener('click', () => {
+    let theme = document.documentElement.getAttribute('data-theme');
+    if (theme === 'dark') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+        themeToggle.textContent = '🌙';
+    } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        themeToggle.textContent = '☀️';
+    }
+});
